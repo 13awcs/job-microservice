@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("recruit/recruiter")
+@RequestMapping("/recruiter")
 @RequiredArgsConstructor
 public class RecruiterController {
     private final RecruiterService recruiterService;
