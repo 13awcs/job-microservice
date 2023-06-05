@@ -21,9 +21,12 @@ public class Recruiter {
 
     private String name;
     private Date dob;
+    private String avatar;
+    private String companyName;
     private String address;
     private String phone;
     private String email;
     private String username;
     private String password;
+    private String disable = "false";
 }

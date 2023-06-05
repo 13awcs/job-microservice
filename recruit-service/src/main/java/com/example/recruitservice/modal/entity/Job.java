@@ -3,6 +3,7 @@ package com.example.recruitservice.modal.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Setter
@@ -24,7 +25,10 @@ public class Job {
     private String companyName;
     private Float salary;
     private String location;
+    private String level;
+    private String active;
     private String status;
     private Long recruiterId;
-    private Date createTime;
+    private Integer apply;
+    private LocalDate createAt;
 }

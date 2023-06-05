@@ -2,29 +2,28 @@ package com.example.candidateservice.controller;
 
 import com.example.candidateservice.modal.dto.ServerResponseDto;
 import com.example.candidateservice.modal.entity.Candidate;
+import com.example.candidateservice.repository.CandidateRepository;
 import com.example.candidateservice.service.CandidateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("candidate")
 @RequiredArgsConstructor
 public class CandidateController {
     private final CandidateService candidateService;
+    private final CandidateRepository candidateRepository;
 
-    @GetMapping("list")
-    public ResponseEntity<List<Candidate>> getListCandidate() {
-        return ResponseEntity.ok(candidateService.getListCandidate());
+    @GetMapping("/candidates")
+    public List<Candidate> getAllCandidate(){
+        return candidateRepository.findAll();
     }
 
-    @GetMapping("profile/{id}")
-    public ResponseEntity<ServerResponseDto> getProfileCandidate(@PathVariable Long id) {
-        return ResponseEntity.ok(candidateService.getProfileCandidate(id));
+    @GetMapping("/candidate/{id}")
+    public Optional<Candidate> getCandidateById(@PathVariable Long id){
+        return candidateRepository.findById(id);
     }
 }

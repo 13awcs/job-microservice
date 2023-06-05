@@ -21,6 +21,7 @@ public class Candidate {
 
     private String name;
     private Date dob;
+    private String category;
     private String phone;
     private String email;
     private String address;

@@ -3,6 +3,7 @@ package com.example.candidateservice.modal.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Setter
@@ -19,7 +20,10 @@ public class Apply {
     @Column(name = "id")
     private Long id;
 
-    private Long candidateId;
-    private Long jobId;
-    private Date createTime;
+    private String candidateApply;
+    private String jobApply;
+    private Float salary;
+    private String location;
+    private LocalDate applyDate;
+    private String status;
 }

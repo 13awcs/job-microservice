@@ -1,5 +1,6 @@
 package com.example.recruitservice.service;
 
+import com.example.recruitservice.dto.inputDto.RecruiterInput;
 import com.example.recruitservice.modal.dto.LoginRequest;
 import com.example.recruitservice.modal.dto.ResponseCase;
 import com.example.recruitservice.modal.dto.ServerResponseDto;
@@ -44,5 +45,21 @@ public class RecruiterService {
         response.setEmail(entity.getEmail());
         response.setPhone(entity.getPhone());
         return response;
+    }
+
+    public Recruiter loadRecruiterByUsername(String username) {
+        Recruiter recruiter = recruiterRepository.findByUsername(username);
+        return recruiter;
+    }
+
+    public Recruiter editProfile(Long id, RecruiterInput recruiterInput) {
+        Optional<Recruiter> recruiterOpt = recruiterRepository.findById(id);
+        Recruiter recruiter = new Recruiter();
+        recruiter = recruiterOpt.get();
+        recruiter.setEmail(recruiterInput.getEmail());
+        recruiter.setPhone(recruiterInput.getPhone());
+        recruiter.setCompanyName(recruiterInput.getCompanyName());
+        recruiter.setId(id);
+        return recruiterRepository.save(recruiter);
     }
 }
