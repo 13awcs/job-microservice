@@ -20,10 +20,13 @@ public class Apply {
     @Column(name = "id")
     private Long id;
 
-    private String candidateApply;
-    private String jobApply;
-    private Float salary;
-    private String location;
+    private Long jobId;
+    private Long candidateId;
+
+//    private String candidateApply;
+//    private String jobApply;
+//    private Float salary;
+//    private String location;
     private LocalDate applyDate;
     private String status;
 }
