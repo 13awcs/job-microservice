@@ -10,7 +10,7 @@ public interface TopJobResponse {
      String getName();
 
      @JsonFormat(pattern="dd-MM-yyyy")
-     LocalDate getCreatedAt();
+     LocalDate getCreateAt();
 
      Long getAmount();
 }

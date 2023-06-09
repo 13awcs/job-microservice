@@ -2,10 +2,7 @@ package com.example.candidateservice.modal.dto;
 
 import com.example.candidateservice.modal.entity.Apply;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -13,10 +10,14 @@ import java.time.LocalDate;
 @Data
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor // cần trả về cái này à um
 public class ApplyOutputDto {
     private Long id;
     private String name;
     private String title;
+    private Float salary;
+    private String location;
     @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate applyDate;
     private String status;

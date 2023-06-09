@@ -1,7 +1,10 @@
 package com.example.candidateservice.service;
 
+import com.example.candidateservice.modal.dto.CandidateOutputDto;
 import com.example.candidateservice.modal.dto.ServerResponseDto;
+import com.example.candidateservice.modal.entity.Apply;
 import com.example.candidateservice.modal.entity.Candidate;
+import com.example.candidateservice.repository.ApplyRepository;
 import com.example.candidateservice.repository.CandidateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -14,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CandidateService {
     private final CandidateRepository candidateRepository;
+    private final ApplyRepository applyRepository;
 
     public List<Candidate> getListCandidate(){
         return candidateRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
@@ -26,4 +30,12 @@ public class CandidateService {
         }
         return ServerResponseDto.success(candidateOpt.get());
     }
+
+    public CandidateOutputDto getCandidateByApplyId(Long applyId) {
+        Apply apply = applyRepository.findById(applyId).orElseThrow();
+        Optional<Candidate> candidate = candidateRepository.findById(apply.getCandidateId());
+        return CandidateOutputDto.fromEntity(candidate.get());
+    }
+
+
 }

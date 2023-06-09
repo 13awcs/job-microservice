@@ -3,7 +3,6 @@ package com.example.recruitservice.controller;
 import com.example.recruitservice.common.ResponseObject;
 import com.example.recruitservice.dto.inputDto.RecruiterInput;
 import com.example.recruitservice.modal.dto.LoginRequest;
-import com.example.recruitservice.modal.dto.ServerResponseDto;
 import com.example.recruitservice.modal.entity.Recruiter;
 import com.example.recruitservice.repository.RecruiterRepository;
 import com.example.recruitservice.service.RecruiterService;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/recruiter")
 @CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping("/recruiter")
 @RequiredArgsConstructor
 public class RecruiterController {
     private final RecruiterService recruiterService;
@@ -47,6 +46,16 @@ public class RecruiterController {
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("Username or password is wrong !"));
+    }
+
+    @GetMapping("/admin/recruiter/{jobId}")
+    public ResponseEntity<ResponseObject> getRecruiterByJobId(@PathVariable Long  jobId){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(recruiterService.getRecruiterByJobId(jobId)));
+    }
+
+    @GetMapping("/admin/get-top")
+    public ResponseEntity<ResponseObject> getTopRecruiter(){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(recruiterService.getTopRecruiter()));
     }
 
 }
