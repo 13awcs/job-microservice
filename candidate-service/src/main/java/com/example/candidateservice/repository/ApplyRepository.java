@@ -44,4 +44,13 @@ public interface ApplyRepository extends JpaRepository<Apply, Long> {
     @Modifying
     @Query(value = "update Apply p set p.status = :status where p.id = :id")
     void setStatus(Long id, String status);
+
+    @Query(value = "SELECT A.ID,A.CANDIDATE_ID,A.JOB_ID,A.APPLY_DATE,A.STATUS " +
+            "FROM APPLY A " +
+            "WHERE A.JOB_ID IN :listJobId AND A.STATUS != ''",
+            countQuery = "Select count(A.ID) " +
+                    "FROM APPLY A JOIN JOB J ON A.JOB_ID = J.ID " +
+                    "WHERE A.JOB_ID IN :listJobId AND A.STATUS != '' ",
+            nativeQuery = true)
+    List<Apply> getNewestApply(List<Long> listJobId);
 }

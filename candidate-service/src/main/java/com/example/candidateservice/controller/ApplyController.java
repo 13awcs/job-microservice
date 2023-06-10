@@ -65,6 +65,11 @@ public class ApplyController {
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Set status successfully"));
     }
 
+    @GetMapping("/applies/newest/{id}")
+    public ResponseEntity<ResponseObject> getNewestApply(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Success", applyService.getNewestApply(id)));
+    }
+
 
 
 }

@@ -100,5 +100,36 @@ public class ApplyService {
         return applyOpt.get();
     }
 
+    public List<ApplyOutputDto> getNewestApply(Long id) {
+        JobForApply[] externalRes = getJobByRecruiterIdFromExternal(id);
+        Map<Long, JobForApply> mapJob = new HashMap<>();
+        Map<Long, Candidate> mapCandidate = new HashMap<>();
+        List<Long> listJobId = new ArrayList<>();
+        List<ApplyOutputDto> result = new ArrayList<>();
+        for (JobForApply jobForApply : externalRes) {
+            listJobId.add(jobForApply.getId());
+            mapJob.put(jobForApply.getId(), jobForApply);
+        }
+
+        List<Long> listCandidateId = applyRepository.findListCandidateIdByJobId(listJobId);
+        List<Candidate> listCandidate = candidateRepository.findByIdIn(listCandidateId);
+        for(Candidate candidate : listCandidate) {
+            mapCandidate.put(candidate.getId(), candidate);
+        }
+        List<Apply> applies = applyRepository.getNewestApply(listJobId);
+        for (Apply apply : applies) {
+            ApplyOutputDto dto = new ApplyOutputDto();
+            dto.setId(apply.getId());
+            dto.setName(mapCandidate.get(apply.getCandidateId()).getName());
+            dto.setTitle(mapJob.get(apply.getJobId()).getTitle());
+            dto.setSalary(mapJob.get(apply.getJobId()).getSalary());
+            dto.setLocation(mapJob.get(apply.getJobId()).getLocation());
+            dto.setApplyDate(apply.getApplyDate());
+            dto.setStatus(apply.getStatus());
+            result.add(dto);
+        }
+        return result;
+    }
+
 
 }
